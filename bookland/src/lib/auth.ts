@@ -5,8 +5,21 @@ import { compare, hash } from 'bcrypt'
 import { env } from "$env/dynamic/private"
 import { prisma } from '$lib/server/prisma'
 import type { UserInfos } from "./models"
+import { type DefaultSession } from "@auth/sveltekit"
 
 
+declare module "@auth/sveltekit" {
+    interface Session {
+        user: {
+            userId: string,
+            accountId: string,
+            email: string,
+            name: string,
+            role: 'admin' | 'basic',
+
+        } & DefaultSession["user"]
+    }
+}
 
 export const { handle, signIn, signOut } = SvelteKitAuth({
     adapter: PrismaAdapter(prisma),
