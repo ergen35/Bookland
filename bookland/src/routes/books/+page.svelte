@@ -51,12 +51,15 @@
         </div>
     </div>
 
-    <div>
-        <div class="flex flex-row space-x-3">
-            <ShipCard title="Informatique" />
-            <ShipCard title="Informatique" />
-            <ShipCard title="Informatique" />
-            <ShipCard title="Informatique" />
+    <div class="pt-8">
+        <div class="flex content-center justify-center">
+
+            <div class="flex flex-row space-x-3">
+                <ShipCard title="Informatique" />
+                <ShipCard title="Informatique" />
+                <ShipCard title="Informatique" />
+                <ShipCard title="Informatique" />
+            </div>
         </div>
     </div>
 
