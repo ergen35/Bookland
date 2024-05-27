@@ -23,7 +23,7 @@
                         {#if data.session && data.session.user.userId == 'basic'}
                         <a class="" href="/account">Mon Compte</a>
                         {:else}
-                        <a href="/auth/login"
+                        <a href="/auth/admin-login"
                             class="text-gray-200 border-white border px-2 py-1 rounded-sm hover:bg-white hover:text-teal-900 hover:transition-colors ease-in-out transition-colors duration-500">
                             <span class="flex flex-row space-x-1 items-center content-center">
                                 <Icon icon="ant-design:login-outlined" class="" />

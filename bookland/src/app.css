@@ -80,3 +80,11 @@
 .navbar-item {
     @apply text-white text-lg hover:border-gray-300 hover:shadow-sm hover:rounded-md hover:bg-green-950 hover:text-white py-1 px-2 transition-all;
 }
+
+.form-wrapper {
+    @apply w-full flex flex-col;
+}
+
+.form-input {
+  @apply border border-gray-200 bg-white h-11 focus:ring-0 focus:outline-none focus:border-teal-700 rounded-md focus:border px-3;
+}
