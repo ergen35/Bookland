@@ -79,3 +79,68 @@ enum Roles {
   basic
   admin
 }
+
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+
+model universite {
+  idUniver Int      @id @default(autoincrement())
+  nomUniver String
+  memoires memoir[]
+}
+
+model memoir {
+  id          Int        @id @default(autoincrement())
+  title       String
+  encadreur   String
+  auteur      String
+  datAjourt   DateTime  @default(now())
+  anne        String
+  nombrePage  Int
+  libelleCy   String
+  libelle_fil String
+  universite  universite @relation(fields: [universiteId], references: [idUniver])
+  universiteId Int
+  resume    String  @default("")
+  fichierPdf  String
+  prix        Int
+  etatMemoir  String
+  cycle       cycle      @relation(fields: [cycleId], references: [idCy])
+  cycleId     Int
+  filiere     filiere    @relation(fields: [filiereId], references: [idFil])
+  filiereId   Int
+  telechargements telechager[]
+}
+
+model cycle {
+  idCy     Int       @id @default(autoincrement())
+  nomCy    String
+  memoires memoir[]
+}
+
+model filiere {
+  idFil    Int       @id @default(autoincrement())
+  libFil   String
+  memoires memoir[]
+}
+
+model telechager {
+  id        Int      @id @default(autoincrement())
+  date      DateTime
+  memoir    memoir   @relation(fields: [memoirId], references: [id])
+  memoirId  Int
+  paiement  paiement @relation(fields: [paiementId], references: [idPaie])
+  paiementId Int
+}
+
+model paiement {
+  idPaie     Int          @id @default(autoincrement())
+  datePaie   DateTime
+  montantPaie String
+  modePaie   String
+  telechargements telechager[]
+}
