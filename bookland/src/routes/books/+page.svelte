@@ -3,6 +3,9 @@
     import type { PageData } from './$types';
     import PresentationCard from '$lib/components/PresentationCard/PresentationCard.svelte';
     import ShipCard from '$lib/components/Ship/ShipCard.svelte';
+    import Skeleton from '$lib/components/ui/skeleton/skeleton.svelte';
+    import { taskDelay } from '$lib/utils';
+    import BookCard from '$lib/components/BookCard/BookCard.svelte';
 
     export let data: PageData;
 </script>
@@ -46,20 +49,45 @@
     </div>
 
     <div class="flex">
-        <div class="w-full text-center mt-5">
-            <a href="/books/all" class="underline text-2xl">Explorer</a>
+        <div class="w-full content-center items-center justify-center mt-5 flex cursor-pointer">
+            <div class="flex flex-row text-center content-center items-center justify-center space-x-1 border border-gray-300 px-3 rounded-md">
+                <a href="/books/all" class="text-2xl">Explorer</a>
+                <Icon icon="fluent:chevron-right-12-filled" class="text-slate-600 h-6 w-6" />
+            </div>
         </div>
     </div>
 
     <div class="pt-8">
         <div class="flex content-center justify-center">
 
-            <div class="flex flex-row space-x-3">
-                <ShipCard title="Informatique" />
-                <ShipCard title="Informatique" />
-                <ShipCard title="Informatique" />
-                <ShipCard title="Informatique" />
+            <div class="flex flex-row space-x-3 max-w-2xl">
+              {#await data.categories}
+                <Skeleton class="px-3 py-1 bg-gray-700 shadow-sm rounded-full w-24 h-6" />
+              {:then categories}
+                {#each categories as category}
+                    {#key category.id}
+                        <ShipCard title={category.name} />
+                    {/key}
+                {:else}
+                     <span>Aucune Catégorie</span>
+                {/each}
+              {/await}
             </div>
+        </div>
+    </div>
+
+    <div class="flex w-full mt-6">
+        <div class="w-full">
+            {#await data.books}
+                <div class="text-lg text-slate-800 text-center">Chargement...</div>
+            {:then books}
+                {#each books as book}
+                    <!-- content here -->
+                    <BookCard book={book}/>
+                {:else}
+                    <div class="italic text-center text-2xl mt-6">Aucun livre à afficher</div>
+                {/each}
+            {/await}
         </div>
     </div>
 

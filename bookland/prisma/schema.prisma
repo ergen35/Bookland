@@ -80,67 +80,69 @@ enum Roles {
   admin
 }
 
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 
-model universite {
+// Business models
+model Universite {
   idUniver Int      @id @default(autoincrement())
   nomUniver String
-  memoires memoir[]
+  memoires Book[]
 }
 
-model memoir {
+
+model Book {
   id          Int        @id @default(autoincrement())
   title       String
-  encadreur   String
-  auteur      String
-  datAjourt   DateTime  @default(now())
-  anne        String
-  nombrePage  Int
-  libelleCy   String
-  libelle_fil String
-  universite  universite @relation(fields: [universiteId], references: [idUniver])
+  overseer   String
+  author      String
+  createdAt   DateTime  @default(now())
+  creationYear        String 
+  pageCount  Int
+  university  Universite @relation(fields: [universiteId], references: [idUniver])
   universiteId Int
-  resume    String  @default("")
-  fichierPdf  String
-  prix        Int
-  etatMemoir  String
-  cycle       cycle      @relation(fields: [cycleId], references: [idCy])
+  summary    String  @default("")
+  pdfFile  String
+  pricingModel BookPricingModel  @default(Free)
+  price        Int
+  cycle       Cycle      @relation(fields: [cycleId], references: [id])
   cycleId     Int
-  filiere     filiere    @relation(fields: [filiereId], references: [idFil])
+  filiere     Filiere    @relation(fields: [filiereId], references: [id])
   filiereId   Int
-  telechargements telechager[]
+
+  downloadUnits downloadUnit[]
 }
 
-model cycle {
-  idCy     Int       @id @default(autoincrement())
-  nomCy    String
-  memoires memoir[]
+
+model Cycle {
+  id     Int       @id @default(autoincrement())
+  name    String
+  books Book[]
 }
 
-model filiere {
-  idFil    Int       @id @default(autoincrement())
-  libFil   String
-  memoires memoir[]
+model Filiere {
+  id    Int       @id @default(autoincrement())
+  name   String
+  books Book[]
 }
 
-model telechager {
+model downloadUnit {
   id        Int      @id @default(autoincrement())
-  date      DateTime
-  memoir    memoir   @relation(fields: [memoirId], references: [id])
-  memoirId  Int
-  paiement  paiement @relation(fields: [paiementId], references: [idPaie])
-  paiementId Int
+  createdAt      DateTime
+  book    Book   @relation(fields: [bookId], references: [id])
+  bookId  Int
+  payment  payment @relation(fields: [paymentId], references: [id])
+  paymentId Int
 }
 
-model paiement {
-  idPaie     Int          @id @default(autoincrement())
-  datePaie   DateTime
-  montantPaie String
-  modePaie   String
-  telechargements telechager[]
+model payment {
+  id     Int          @id @default(autoincrement())
+  createdAt   DateTime
+  amount String
+  paymentMethod   String
+  downloadUnits downloadUnit[]
+}
+
+enum BookPricingModel {
+  Free
+  Paid
 }

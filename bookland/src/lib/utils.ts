@@ -60,3 +60,8 @@ export const flyAndScale = (
 		easing: cubicOut
 	};
 };
+
+
+export function taskDelay(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
