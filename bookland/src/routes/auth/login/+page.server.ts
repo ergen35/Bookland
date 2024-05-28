@@ -62,7 +62,7 @@ export const actions: Actions = {
                 }
             });
 
-            event.cookies.set('bookand_lauth', userSession.sessionToken, {
+            event.cookies.set('bookland_auth', userSession.sessionToken, {
                 path: '/',
                 httpOnly: true,
                 sameSite: 'strict',
@@ -100,7 +100,7 @@ export const actions: Actions = {
                     }
                 });
 
-                event.cookies.set('bookand_lauth', userSession.sessionToken, {
+                event.cookies.set('bookland_auth', userSession.sessionToken, {
                     path: '/',
                     httpOnly: true,
                     sameSite: 'strict',

@@ -7,13 +7,13 @@ import type { SessionInfos } from './lib/models';
 
 export const handle: Handle = async ({ event, resolve }) => {
 
-    const authCookie = event.cookies.get('bookand_lauth' || '');
+    const authCookie = event.cookies.get('bookland_auth' || '');
 
     if (authCookie) {
         
-        const sessionHash = JSON.parse(authCookie);
+        const sessionHash = authCookie;
 
-        console.log("Session Hash: ",sessionHash);
+        console.log("Session Hash: ", sessionHash);
 
         if (sessionHash) {
             const session = await prisma.session.findFirst({
@@ -42,7 +42,7 @@ export const handle: Handle = async ({ event, resolve }) => {
                 const userInfos: SessionInfos = {
                     accountId: session.user.Account?.id,
                     email: session.user.email,
-                    name: session.user.name,
+                    name: session.user.fullname,
                     role: session.user.Account?.role,
                     userId: session.userId,
                     sessionId: session.id,

@@ -23,8 +23,8 @@
                    <div class="flex flex-row content-between space-x-5">
 
                         <div class="form-wrapper">
-                            <label for="email" class="mb-1 ms-1">Nom & Prénoms</label>
-                            <input type="text" placeholder="Nom & Prénoms" bind:value={credentials.email} name="email" class="form-input" id="email">
+                            <label for="fullname" class="mb-1 ms-1">Nom & Prénoms</label>
+                            <input type="text" placeholder="Nom & Prénoms" bind:value={credentials.fullname} name="fullname" class="form-input" id="fullname">
                         </div>
 
                         <div class="form-wrapper">
@@ -38,10 +38,10 @@
                         <input type="password" placeholder="Mot de passe" bind:value={credentials.password} class="form-input" name="password" id="password">
                     </div>
 
-                    <div class="form-wrapper">
+                    <!-- <div class="form-wrapper">
                         <label for="password" class="mb-1 ms-1">Confirmer le mot de passe</label>
                         <input type="password" placeholder="Confirmer Mot de passe" bind:value={credentials.password} class="form-input" name="password" id="password">
-                    </div>
+                    </div> -->
 
                     <div class="form-wrapper flex flex-row content-center justify-center items-center">
                         <button type="submit" class="bg-teal-800 w-32 text-white p-2 rounded-md hover:scale-110 transition duration-300">M'inscrire</button>
