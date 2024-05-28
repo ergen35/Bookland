@@ -3,8 +3,6 @@ import type { Handle } from '@sveltejs/kit';
 import type { SessionInfos } from './lib/models';
 
 
-
-
 export const handle: Handle = async ({ event, resolve }) => {
 
     const authCookie = event.cookies.get('bookland_auth' || '');
