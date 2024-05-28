@@ -25,7 +25,7 @@ import type { LayoutData } from './$types';
                 </svelte:fragment>
             </SideMenuNavigationLink>
 
-            <SideMenuNavigationLink title="Universités" url="/admin/manage-books">
+            <SideMenuNavigationLink title="Universités" url="/admin/manage-schools">
                 <svelte:fragment slot="icon">
                     <Icon icon="fa6-solid:school-circle-check" color='blue' height={28} width={28}  />
                 </svelte:fragment>
@@ -40,6 +40,12 @@ import type { LayoutData } from './$types';
             <SideMenuNavigationLink title="Cycles" url="/admin/manage-cycles">
                 <svelte:fragment slot="icon">
                     <Icon icon="icon-park-solid:level" height={28} width={28}  />
+                </svelte:fragment>
+            </SideMenuNavigationLink>
+
+            <SideMenuNavigationLink title="Utilisateurs" url="/admin/manage-users">
+                <svelte:fragment slot="icon">
+                    <Icon icon="heroicons:users-20-solid" style="color: #fbc014" height={28} width={28}  />
                 </svelte:fragment>
             </SideMenuNavigationLink>
 
