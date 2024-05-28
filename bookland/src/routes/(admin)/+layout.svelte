@@ -12,7 +12,13 @@ import type { LayoutData } from './$types';
     <div class="flex w-64 py-3 ms-2">
 
         <div class="bg-teal-50 w-full h-full shadow-teal-300 shadow-sm border rounded-sm px-2 py-4 space-y-1">
-                        
+            
+            <SideMenuNavigationLink title="Acceuil" url="/admin/dashboard">
+                <svelte:fragment slot="icon">
+                    <Icon icon="mage:dashboard-chart-fill" color="darkorange" height={28} width={28}  />
+                </svelte:fragment>
+            </SideMenuNavigationLink>
+
             <SideMenuNavigationLink title="Collection" url="/admin/manage-books">
                 <svelte:fragment slot="icon">
                     <Icon icon="wpf:books" height={28} width={28}  />

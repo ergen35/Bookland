@@ -5,5 +5,5 @@
 </script>
 
 <div>
-    Statistiques
+    Réglages
 </div>

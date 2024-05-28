@@ -5,5 +5,5 @@
 </script>
 
 <div>
-    Statistiques
+    Mémoires
 </div>
