@@ -26,31 +26,58 @@
                 <a class="navbar-item" href="/all-categories">Catégories</a>
                 <a class="navbar-item" href="/all">Mémoires</a>
 
-                {#if session && session.role == 'basic'}
-                    
-                    <Popover.Root>
-                        <Popover.Trigger>
-                            <div class="rounded-full border border-slate-500 p-1 shadow-sm bg-black cursor-pointer">
-                                <Icon icon="fluent:person-accounts-20-filled" height={26} width={26} class="text-white" />
-                            </div>  
-                        </Popover.Trigger>
-                        <Popover.Content>
-                            <div class="flex flex-col space-y-2">
-                                <a href="/account" class="pop-menu-item">
-                                    <Icon icon="mdi-light:account" class="flex text-blue-600" height={20} width={20} />
-                                    <span class="flex-1 text-sm">Mon Compte</span>
-                                </a>
-                                
-                                <!-- svelte-ignore a11y-click-events-have-key-events -->
-                                <!-- svelte-ignore a11y-no-static-element-interactions -->
-                                <div class="pop-menu-item" on:click|preventDefault|stopPropagation={disconnectUser}>
-                                    <Icon icon="majesticons:logout-half-circle" class="flex text-red-600" height={20} width={20}/>
-                                    <span class="flex-1 text-sm">Déconnexion</span>
-                                </div>
-                            </div>
-                        </Popover.Content>
-                    </Popover.Root>
+                {#if session }
 
+                    {#if session.role == 'basic'}
+                        <Popover.Root>
+                            <Popover.Trigger>
+                                <div class="rounded-full border border-slate-500 p-1 shadow-sm bg-black cursor-pointer">
+                                    <Icon icon="fluent:person-accounts-20-filled" height={26} width={26} class="text-white" />
+                                </div>  
+                            </Popover.Trigger>
+                            <Popover.Content>
+                                <div class="flex flex-col space-y-0 -m-4">
+                                    <a href="/account" class="pop-menu-item">
+                                        <Icon icon="mdi-light:account" class="flex text-blue-600" height={20} width={20} />
+                                        <span class="flex-1 text-sm">Mon Compte</span>
+                                    </a>
+                                    
+                                    <!-- svelte-ignore a11y-click-events-have-key-events -->
+                                    <!-- svelte-ignore a11y-no-static-element-interactions -->
+                                    <div class="pop-menu-item" on:click|preventDefault|stopPropagation={disconnectUser}>
+                                        <Icon icon="majesticons:logout-half-circle" class="flex text-red-600" height={20} width={20}/>
+                                        <span class="flex-1 text-sm">Déconnexion</span>
+                                    </div>
+                                </div>
+                            </Popover.Content>
+                        </Popover.Root>
+                    {:else if  session.role == 'admin'}
+                        <Popover.Root>
+                            <Popover.Trigger>
+                                <div class="rounded-full border border-slate-500 p-1 shadow-sm bg-black cursor-pointer">
+                                    <Icon icon="fluent:person-accounts-20-filled" height={26} width={26} class="text-white" />
+                                </div>  
+                            </Popover.Trigger>
+                            <Popover.Content>
+                                <div class="flex flex-col space-y-0 -m-4">
+                                    <a href="/admin/dashboard" class="pop-menu-item">
+                                        <Icon icon="mage:dashboard-chart-star" class="flex text-blue-600" height={20} width={20} />
+                                        <span class="flex-1 text-sm">Tableau de bord</span>
+                                    </a>
+                                    
+                                    <!-- svelte-ignore a11y-click-events-have-key-events -->
+                                    <!-- svelte-ignore a11y-no-static-element-interactions -->
+                                    <div class="pop-menu-item" on:click|preventDefault|stopPropagation={disconnectUser}>
+                                        <Icon icon="majesticons:logout-half-circle" class="flex text-red-600" height={20} width={20}/>
+                                        <span class="flex-1 text-sm">Déconnexion</span>
+                                    </div>
+                                </div>
+                            </Popover.Content>
+                        </Popover.Root>
+                    {:else}
+                        <div></div>
+                    {/if}
+                    
                 {:else}
                     <a href="/auth/login"
                         class="text-gray-200 border-white border px-2 py-1 rounded-sm hover:bg-white hover:text-teal-900 hover:transition-colors ease-in-out transition-colors duration-500">

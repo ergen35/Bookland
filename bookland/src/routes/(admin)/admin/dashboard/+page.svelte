@@ -3,3 +3,7 @@
     
     export let data: PageData;
 </script>
+
+<div>
+    Admin Dashoard
+</div>

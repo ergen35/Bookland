@@ -1,6 +1,26 @@
 import { prisma } from '$lib/server/prisma';
 import type { Handle } from '@sveltejs/kit';
 import type { SessionInfos } from './lib/models';
+import { taskDelay } from '$lib/utils';
+import { createAdmin } from '$lib/auth';
+
+
+if (true) {
+    //create default admin if no admin
+    const adminsCount = await prisma.account.count({
+        where: {
+            role: 'admin'
+        }
+    });
+
+    console.log("There is currently ", adminsCount, " Admins");
+
+    if (adminsCount <= 0) {
+
+        console.log("There is currently no admin | creating default admin...")
+        await createAdmin("admin fritz", "admin@gmail.com", "admin");
+    }
+}
 
 
 export const handle: Handle = async ({ event, resolve }) => {
@@ -8,7 +28,7 @@ export const handle: Handle = async ({ event, resolve }) => {
     const authCookie = event.cookies.get('bookland_auth' || '');
 
     if (authCookie) {
-        
+
         const sessionHash = authCookie;
 
         console.log("Session Hash: ", sessionHash);

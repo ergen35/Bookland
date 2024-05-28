@@ -73,7 +73,7 @@ export const actions: Actions = {
             console.log("user role is: ", userAccount?.role)
 
             if (userAccount?.role == 'admin') {
-                return redirect(301, '/admin-dashboard')
+                return redirect(301, '/admin/dashboard')
             }
 
             return redirect(301, '/account')
@@ -111,7 +111,7 @@ export const actions: Actions = {
                 console.log("user role is: ", userAccount?.role)
 
                 if (userAccount?.role == 'admin') {
-                    return redirect(301, '/admin-dashboard')
+                    return redirect(301, '/admin/dashboard')
                 }
 
                 return redirect(301, '/account')
