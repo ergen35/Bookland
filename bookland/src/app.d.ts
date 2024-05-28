@@ -1,10 +1,13 @@
 // See https://kit.svelte.dev/docs/types#app
+
+import type { SessionInfos } from "$lib/models";
+
 // for information about these interfaces
 declare global {
 	namespace App {
 		// interface Error {}
 		interface Locals {
-			auth(): Promise<Session | null>;
+			user: SessionInfos | null
 		}
 		// interface PageData {}
 		// interface PageState {}

@@ -2,6 +2,11 @@
     import type { PageData } from './$types';
     
     export let data: PageData;
+
+    let credentials = {
+        email: '',
+        password: ''
+    }
 </script>
 
 
@@ -14,12 +19,12 @@
                 <div class="space-y-6">
                     <div class="form-wrapper">
                         <label for="">Adresse e-mail</label>
-                        <input type="text" placeholder="Adresse e-mail" name="email" class="form-input" id="email">
+                        <input type="text" placeholder="Adresse e-mail" bind:value={credentials.email} name="email" class="form-input" id="email">
                     </div>
 
                     <div class="form-wrapper">
                         <label for="">Mot de passe</label>
-                        <input type="password" placeholder="Mot de passe" class="form-input" name="password" id="password">
+                        <input type="password" placeholder="Mot de passe" bind:value={credentials.password} class="form-input" name="password" id="password">
                     </div>
 
                     <div class="form-wrapper flex flex-row content-center justify-center items-center">
