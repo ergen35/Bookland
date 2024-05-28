@@ -10,7 +10,10 @@ export const handle: Handle = async ({ event, resolve }) => {
     const authCookie = event.cookies.get('bookand_lauth' || '');
 
     if (authCookie) {
+        
         const sessionHash = JSON.parse(authCookie);
+
+        console.log("Session Hash: ",sessionHash);
 
         if (sessionHash) {
             const session = await prisma.session.findFirst({

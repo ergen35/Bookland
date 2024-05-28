@@ -31,7 +31,7 @@ export const actions: Actions = {
         });
 
         if (!userAccount) {
-            
+
             console.log("User account not found")
 
             return fail(404, { error: "Informations de connexion invalides" })
@@ -115,7 +115,6 @@ export const actions: Actions = {
                 }
 
                 return redirect(301, '/account')
-
             }
         }
     }
