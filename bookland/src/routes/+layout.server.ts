@@ -4,7 +4,7 @@ export const load = (async (event) => {
 
     const sessionInfos = await event.locals.user
 
-    console.log("session infos:", sessionInfos)
+    // console.log("session infos:", sessionInfos)
 
     return {
         session: sessionInfos

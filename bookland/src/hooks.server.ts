@@ -31,7 +31,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 
         const sessionHash = authCookie;
 
-        console.log("Session Hash: ", sessionHash);
+        // console.log("Session Hash: ", sessionHash);
 
         if (sessionHash) {
             const session = await prisma.session.findFirst({
