@@ -14,7 +14,7 @@
         </div>
         <div class="flex-1 text-start justify-center items-center content-center">{title} </div>
         <div class="justify-center items-center content-center flex">
-            <Icon icon="icon-park-outline:right-c" height={18} width={18} />
+            <Icon icon="icon-park-outline:right-c" class="text-slate-400" height={18} width={18} />
         </div>
     </div>
 </a>
