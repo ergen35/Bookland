@@ -11,18 +11,18 @@
 
     export let data: PageData;
 
-    let cycleName = '';
+    let filiereName = '';
     $: dialogOpened = false;
 
     async function createSchool(){
 
-        const response = await fetch('/admin/manage-cycles', {
+        const response = await fetch('/admin/manage-filieres', {
             method: 'POST',
-            body: JSON.stringify({ name: cycleName })
+            body: JSON.stringify({ name: filiereName })
         })
 
         if(response.ok){
-            dialogOpened = false; cycleName = ''; 
+            dialogOpened = false; filiereName = ''; 
             invalidateAll();
         }
     }
@@ -31,7 +31,7 @@
 <div class="pt-4 px-5">
 
     <div class="mb-5">
-        <span class="text-2xl font-bold text-slate-600">Cycles</span>
+        <span class="text-2xl font-bold text-slate-600">Filières</span>
     </div>
 
     <div class="flex flex-col">
@@ -52,7 +52,7 @@
 
                         <div class="items-center flex flex-row space-x-4">
                             <Label for="schoolname" class="text-left w-24">Nom</Label>
-                            <Input id="schoolname" required minlength={5} maxlength={190} bind:value={cycleName} class="col-span-3" />
+                            <Input id="schoolname" required minlength={5} maxlength={190} bind:value={filiereName} class="col-span-3" />
                         </div>
                     </div>
                 <Dialog.Footer>
@@ -69,9 +69,9 @@
 
         <div class="flex flex-1">
 
-            {#await data.cycles}
+            {#await data.filieres}
                 <Icon icon='gg:spinner' class="animate-spin" />
-            {:then cycles}
+            {:then filieres}
                 <Table.Root>
                     <Table.Header>
                         <Table.Row>
@@ -82,10 +82,10 @@
                     </Table.Header>
 
                     <Table.Body>
-                        {#each cycles as cycle,i (cycle.id)}
+                        {#each filieres as filiere,i (filiere.id)}
                             <Table.Row>
-                                <Table.Cell class="font-medium">{cycle.id}</Table.Cell>
-                                <Table.Cell>{cycle.name}</Table.Cell>
+                                <Table.Cell class="font-medium">{filiere.id}</Table.Cell>
+                                <Table.Cell>{filiere.name}</Table.Cell>
                                 <Table.Cell class="text-right">
                                     <div>
                                         <Button class="bg-sky-500 hover:bg-sky-800">

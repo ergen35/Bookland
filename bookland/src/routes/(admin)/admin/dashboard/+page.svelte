@@ -22,7 +22,7 @@
                 </svelte:fragment>
             </StatsCard>
     
-            <StatsCard title="Filières" count={data.booksCount}>
+            <StatsCard title="Filières" count={data.filieresCount}>
                 <svelte:fragment slot="icon">
                     <Icon icon="arcticons:classroom" height={24} width={24}  />
                 </svelte:fragment>

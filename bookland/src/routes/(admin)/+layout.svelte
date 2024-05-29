@@ -31,7 +31,7 @@ import type { LayoutData } from './$types';
                 </svelte:fragment>
             </SideMenuNavigationLink>
 
-            <SideMenuNavigationLink title="Filières" url="/admin/manage-options">
+            <SideMenuNavigationLink title="Filières" url="/admin/manage-filieres">
                 <svelte:fragment slot="icon">
                     <Icon icon="arcticons:classroom" height={28} width={28}  />
                 </svelte:fragment>

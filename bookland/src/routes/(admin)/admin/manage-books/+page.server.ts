@@ -10,7 +10,6 @@ export const load = (async ({ request }) => {
         page = Number.parseInt(pageQuery);
     }
 
-
     const books = prisma.book.findMany({
         skip: page <= 1 ? 0 : (page - 1) * 20,
         take: 20
