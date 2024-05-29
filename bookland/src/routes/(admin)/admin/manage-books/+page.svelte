@@ -7,6 +7,7 @@
     import { Input } from "$lib/components/ui/input/index.js";
     import { Label } from "$lib/components/ui/label/index.js";
     import { buttonVariants } from '$lib/components/ui/button';
+    import SelectionCombo from '$lib/components/SelectionCombo/SelectionCombo.svelte';
     
     export let data: PageData;
 
@@ -37,6 +38,14 @@
                     </Dialog.Description> -->
                   </Dialog.Header>
                     <div class="flex flex-col space-y-2">
+
+                        <div class="items-center flex flex-row space-x-4">
+                            <Label for="title" class="text-left w-24">Université</Label>
+                            <div class="bg-red-100 w-full">
+                                <SelectionCombo notDataText="Aucune Université trouvée" />
+                            </div>
+                        </div>
+
                         <div class="items-center flex flex-row space-x-4">
                             <Label for="title" class="text-left w-24">Thème</Label>
                             <Input id="title" class="col-span-3" />
@@ -51,13 +60,11 @@
                         </div>
                         <div class="items-center flex flex-row space-x-4">
                             <Label for="book-file" class="text-left w-24">Fichier</Label>
-                            <Input id="book-file" type="file" class="col-span-3" />
+                            <Input id="book-file" accept="application/pdf" type="file" class="col-span-3" />
                         </div>
                     </div>
-                    <!-- <div class="grid gap-4 py-4">
-                    </div> -->
                   <Dialog.Footer>
-                    <Button type="submit">
+                    <Button type="submit" class="bg-teal-800">
                         <div class="flex flex-row content-center items-center justify-center space-x-2">
                             <Icon icon="fluent:save-28-filled"  height={20} width={20}/>
                             <span>Enregister </span>

@@ -40,10 +40,10 @@ CREATE TABLE `Session` (
 
 -- CreateTable
 CREATE TABLE `Universite` (
-    `idUniver` INTEGER NOT NULL AUTO_INCREMENT,
-    `nomUniver` VARCHAR(191) NOT NULL,
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(191) NOT NULL,
 
-    PRIMARY KEY (`idUniver`)
+    PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
@@ -109,7 +109,7 @@ ALTER TABLE `Account` ADD CONSTRAINT `Account_userId_fkey` FOREIGN KEY (`userId`
 ALTER TABLE `Session` ADD CONSTRAINT `Session_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Book` ADD CONSTRAINT `Book_universiteId_fkey` FOREIGN KEY (`universiteId`) REFERENCES `Universite`(`idUniver`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `Book` ADD CONSTRAINT `Book_universiteId_fkey` FOREIGN KEY (`universiteId`) REFERENCES `Universite`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Book` ADD CONSTRAINT `Book_cycleId_fkey` FOREIGN KEY (`cycleId`) REFERENCES `Cycle`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

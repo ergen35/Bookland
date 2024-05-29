@@ -15,8 +15,8 @@ datasource db {
 
 model User {
   id       String    @id @default(cuid())
-  fullname String   
-  email    String   @unique
+  fullname String
+  email    String    @unique
   image    String?
   Session  Session[]
   Account  Account?
@@ -58,9 +58,9 @@ enum Roles {
 
 // Business models
 model Universite {
-  idUniver  Int    @id @default(autoincrement())
-  nomUniver String
-  memoires  Book[]
+  id    Int    @id @default(autoincrement())
+  name  String
+  books Book[]
 }
 
 model Book {
@@ -71,7 +71,7 @@ model Book {
   createdAt    DateTime         @default(now())
   creationYear String
   pageCount    Int
-  university   Universite       @relation(fields: [universiteId], references: [idUniver])
+  university   Universite       @relation(fields: [universiteId], references: [id])
   universiteId Int
   summary      String           @default("")
   pdfFile      String
