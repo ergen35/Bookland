@@ -211,10 +211,15 @@
                                 <Table.Cell class="font-medium">{book.id}</Table.Cell>
                                 <Table.Cell>{book.title}</Table.Cell>
                                 <Table.Cell>{book.price}</Table.Cell>
-                                <Table.Cell>{book.createdAt.toDateString()}</Table.Cell>
+                                <Table.Cell>{book.createdAt.toLocaleDateString("fr")}</Table.Cell>
                                 <Table.Cell class="text-right">
                                     <div>
-                                        <button>Détails</button>
+                                        <Button class="bg-sky-500 hover:bg-sky-800">
+                                            Éditer
+                                        </Button>
+                                        <Button class="bg-red-500 hover:bg-red-800">
+                                            Suppr.
+                                        </Button>
                                     </div>
                                 </Table.Cell>
                             </Table.Row>
