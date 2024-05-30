@@ -46,7 +46,7 @@
                 </Dialog.Trigger>
                 <Dialog.Content class="sm:max-w-[425px] min-w-[600px]">
                 <Dialog.Header>
-                    <Dialog.Title class="mb-1 text-center text-teal-700">Ajouter une Filière</Dialog.Title>
+                    <Dialog.Title class="mb-1 text-center text-teal-700">Ajouter un Cycle</Dialog.Title>
                 </Dialog.Header>
                     <div class="flex flex-col space-y-2">
 
