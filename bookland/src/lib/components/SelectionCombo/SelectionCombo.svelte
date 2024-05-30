@@ -6,7 +6,7 @@
     import { Button } from "$lib/components/ui/button/index.js";
     import { cn } from "$lib/utils.js";
 
-    export let notDataText: string = "Aucun Enregistrement";
+    export let noDataText: string = "Aucun Enregistrement";
     export let dataArray: Array< {value: string, label: string }> = [];
     export let displayText: string = "Sélectionner";
     export let placeholder: string = "Rechercher";
@@ -35,15 +35,15 @@
         variant="outline"
         role="combobox"
         aria-expanded={open}
-        class="w-[200px] justify-between">
+        class="w-full justify-between">
         {selectedValue}
         <Icon icon="radix-icons:caret-sort" class="ml-2 h-4 w-4 shrink-0 opacity-50"/>
       </Button>
     </Popover.Trigger>
-    <Popover.Content class="w-[200px] p-0">
+    <Popover.Content class="p-0 w-auto">
       <Command.Root>
         <Command.Input placeholder={placeholder} class="h-9" />
-        <Command.Empty>{notDataText}</Command.Empty>
+        <Command.Empty>{noDataText}</Command.Empty>
         <Command.Group>
           {#each dataArray as framework}
             <Command.Item

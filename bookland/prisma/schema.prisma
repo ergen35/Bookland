@@ -66,15 +66,15 @@ model Universite {
 model Book {
   id           Int              @id @default(autoincrement())
   title        String
-  overseer     String
-  author       String
+  overseer     String?          @default("")
+  author       String           
   createdAt    DateTime         @default(now())
-  creationYear String
+  creationYear String           
   pageCount    Int
   university   Universite       @relation(fields: [universiteId], references: [id])
   universiteId Int
   summary      String           @default("")
-  pdfFile      String
+  pdfFile      String           @default("")
   pricingModel BookPricingModel @default(Free)
   price        Int
   cycle        Cycle            @relation(fields: [cycleId], references: [id])

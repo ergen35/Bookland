@@ -40,7 +40,7 @@
             <Dialog.Root bind:open={dialogOpened}>
                 <Dialog.Trigger class={buttonVariants({ variant: "default" })}>
                     <div class="flex flex-row space-x-2 justify-center content-center items-center">
-                        <Icon icon="fluent:notebook-add-20-filled"  height={20} width={20}/>
+                        <Icon icon="mdi:tab-add" height={20} width={20}/>
                         <span> Ajouter </span>
                     </div>
                 </Dialog.Trigger>
