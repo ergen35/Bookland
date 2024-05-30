@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE `Book` MODIFY `overseer` VARCHAR(191) NULL DEFAULT '',
+    MODIFY `pdfFile` VARCHAR(191) NOT NULL DEFAULT '';

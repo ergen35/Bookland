@@ -15,9 +15,18 @@ export const load = (async ({ request }) => {
         take: 20
     });
 
+
+    // const universites = prisma.universite.findMany();
+    // const filieres = prisma.filiere.findMany();
+    // const cycles = prisma.cycle.findMany();
+
+    const allData = Promise.all([prisma.universite.findMany(), prisma.filiere.findMany(), prisma.cycle.findMany()])
+
+
     console.log("fetching page ", page)
 
     return {
-        books
+        books,
+        allData
     };
 }) satisfies PageServerLoad;
