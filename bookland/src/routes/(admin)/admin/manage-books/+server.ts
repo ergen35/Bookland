@@ -46,3 +46,29 @@ export const POST: RequestHandler = async ({ request }) => {
         return new Response(JSON.stringify({ message: "An Error occured", error }), { status: 500 });
     }
 };
+
+
+export const DELETE: RequestHandler = async ({ request }) => { 
+
+    const bookId = new URL(request.url).searchParams.get('id');
+    console.log("book id", bookId)
+    
+    if(bookId && Number(bookId)){
+        
+        const result = await prisma.book.delete({
+            where: {
+                id: Number(bookId)
+            }
+        });
+        
+        console.log(result)
+
+        if(result){
+            return new Response();
+        }
+    }
+
+    console.log("Book Id is invalid")
+
+    return new Response(JSON.stringify({ message: "Bad Request" }), { status: 400 })
+}
