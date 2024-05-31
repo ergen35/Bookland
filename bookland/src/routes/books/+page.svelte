@@ -77,16 +77,17 @@
     </div>
 
     <div class="flex w-full mt-6">
-        <div class="w-full">
+        <div class="w-full px-5 mb-5">
             {#await data.books}
                 <div class="text-lg text-slate-800 text-center">Chargement...</div>
             {:then books}
-                {#each books as book}
-                    <!-- content here -->
-                    <BookCard book={book}/>
-                {:else}
-                    <div class="italic text-center text-2xl mt-6">Aucun livre à afficher</div>
-                {/each}
+                <div class="flex flew-row flex-wrap w-full space-x-8">
+                    {#each books as book}
+                        <BookCard book={book}/>
+                    {:else}
+                        <div class="italic text-center text-2xl mt-6">Aucun livre à afficher</div>
+                    {/each}
+                </div>
             {/await}
         </div>
     </div>
