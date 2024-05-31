@@ -1,7 +1,7 @@
 <script lang="ts">
     import SideMenuNavigationLink from '$lib/components/SideMenuNavigationLink/SideMenuNavigationLink.svelte';
     import Icon from '@iconify/svelte';
-import type { LayoutData } from './$types';
+    import type { LayoutData } from './$types';
     
     export let data: LayoutData;
 </script>
