@@ -2,14 +2,23 @@
     import SideMenuNavigationLink from '$lib/components/SideMenuNavigationLink/SideMenuNavigationLink.svelte';
     import Icon from '@iconify/svelte';
 
-    import type { LayoutData } from './$types';
+    import type { LayoutData, PageData } from './$types';
     
-    export let data: LayoutData;
+    export let data:LayoutData;
+
+    
 </script>
 
 <div class="w-full h-full flex flex-row space-x-4">
     <div class="flex w-64 py-3 ms-2">
         <div class="bg-teal-50 w-full h-full shadow-teal-300 shadow-sm border rounded-sm px-2 py-4 space-y-1">
+
+            <SideMenuNavigationLink title="Accueil" url="">
+                <svelte:fragment slot="icon">
+                    <Icon icon="mage:dashboard-chart-fill" color="orange" height={28} width={28}  />
+                </svelte:fragment>
+            </SideMenuNavigationLink>
+
             <SideMenuNavigationLink title="Mes Mémoires" url="/user/mesMemoires">
                 <svelte:fragment slot="icon">
                     <Icon icon="wpf:books" height={28} width={28}  />
