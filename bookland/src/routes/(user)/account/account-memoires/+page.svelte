@@ -2,7 +2,7 @@
     import { buttonVariants } from "$lib/components/ui/button";
     import * as Dialog from "$lib/components/ui/dialog/index.js";
     import Icon from "@iconify/svelte";
-    import type { PageData } from './$types';
+    import type { PageData } from '../../mesMemoires/$types';
     
     export let data: PageData;
 

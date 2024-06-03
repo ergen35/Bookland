@@ -13,7 +13,7 @@
     <div class="flex w-64 py-3 ms-2">
         <div class="bg-teal-50 w-full h-full shadow-teal-300 shadow-sm border rounded-sm px-2 py-4 space-y-1">
 
-            <SideMenuNavigationLink title="Accueil" url="">
+            <SideMenuNavigationLink title="Accueil" url="/user/account/dashboard-user">
                 <svelte:fragment slot="icon">
                     <Icon icon="mage:dashboard-chart-fill" color="orange" height={28} width={28}  />
                 </svelte:fragment>
@@ -45,5 +45,8 @@
         </div>
     </div>
     
+    <main>
+        
+    </main>
     
 </div>
