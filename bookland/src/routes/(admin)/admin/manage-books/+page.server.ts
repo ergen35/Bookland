@@ -6,7 +6,7 @@ export const load = (async ({ request }) => {
     const pageQuery = new URL(request.url).searchParams.get('page');
     let page = 1;
 
-    if(pageQuery && Number.isInteger(pageQuery)){
+    if(pageQuery && Number(pageQuery)){
         page = Number.parseInt(pageQuery);
     }
 

@@ -25,6 +25,12 @@
                 </svelte:fragment>
             </SideMenuNavigationLink>
 
+            <SideMenuNavigationLink title="Propositions" url="/admin/propositions">
+                <svelte:fragment slot="icon">
+                    <Icon icon="bi:bookmark-plus-fill" style="color: purple" height={28} width={28}  />
+                </svelte:fragment>
+            </SideMenuNavigationLink>
+
             <SideMenuNavigationLink title="Universités" url="/admin/manage-schools">
                 <svelte:fragment slot="icon">
                     <Icon icon="fa6-solid:school-circle-check" color='blue' height={28} width={28}  />
@@ -64,5 +70,3 @@
     </main>
 
 </div>
-
-
