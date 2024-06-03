@@ -50,14 +50,14 @@ CREATE TABLE `Universite` (
 CREATE TABLE `Book` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `title` VARCHAR(191) NOT NULL,
-    `overseer` VARCHAR(191) NOT NULL,
+    `overseer` VARCHAR(191) NULL DEFAULT '',
     `author` VARCHAR(191) NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `creationYear` VARCHAR(191) NOT NULL,
     `pageCount` INTEGER NOT NULL,
     `universiteId` INTEGER NOT NULL,
     `summary` VARCHAR(191) NOT NULL DEFAULT '',
-    `pdfFile` VARCHAR(191) NOT NULL,
+    `pdfFile` VARCHAR(191) NOT NULL DEFAULT '',
     `pricingModel` ENUM('Free', 'Paid') NOT NULL DEFAULT 'Free',
     `price` INTEGER NOT NULL,
     `cycleId` INTEGER NOT NULL,
@@ -102,6 +102,25 @@ CREATE TABLE `payment` (
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
+-- CreateTable
+CREATE TABLE `AppSettings` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `kkiapaySettingsId` INTEGER NOT NULL,
+
+    UNIQUE INDEX `AppSettings_kkiapaySettingsId_key`(`kkiapaySettingsId`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `KkiapaySettings` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `publicKey` VARCHAR(191) NOT NULL,
+    `privateKey` VARCHAR(191) NOT NULL,
+    `secretKey` VARCHAR(191) NOT NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
 -- AddForeignKey
 ALTER TABLE `Account` ADD CONSTRAINT `Account_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
@@ -122,3 +141,6 @@ ALTER TABLE `downloadUnit` ADD CONSTRAINT `downloadUnit_bookId_fkey` FOREIGN KEY
 
 -- AddForeignKey
 ALTER TABLE `downloadUnit` ADD CONSTRAINT `downloadUnit_paymentId_fkey` FOREIGN KEY (`paymentId`) REFERENCES `payment`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `AppSettings` ADD CONSTRAINT `AppSettings_kkiapaySettingsId_fkey` FOREIGN KEY (`kkiapaySettingsId`) REFERENCES `KkiapaySettings`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

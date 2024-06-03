@@ -3,6 +3,7 @@ import type { Handle } from '@sveltejs/kit';
 import type { SessionInfos } from './lib/models';
 import { taskDelay } from '$lib/utils';
 import { createAdmin } from '$lib/auth';
+import { registerDefaultSettings } from '$lib/server/data-seeding';
 
 
 if (true) {
@@ -21,6 +22,8 @@ if (true) {
         await createAdmin("admin fritz", "admin@gmail.com", "admin");
     }
 }
+
+await registerDefaultSettings();
 
 
 export const handle: Handle = async ({ event, resolve }) => {

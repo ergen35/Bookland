@@ -1,9 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -67,9 +64,9 @@ model Book {
   id           Int              @id @default(autoincrement())
   title        String
   overseer     String?          @default("")
-  author       String           
+  author       String
   createdAt    DateTime         @default(now())
-  creationYear String           
+  creationYear String
   pageCount    Int
   university   Universite       @relation(fields: [universiteId], references: [id])
   universiteId Int
@@ -112,6 +109,22 @@ model payment {
   amount        String
   paymentMethod String
   downloadUnits downloadUnit[]
+}
+
+model AppSettings {
+  id Int @id() @default(autoincrement())
+
+  kkiapaySettings   KkiapaySettings @relation(fields: [kkiapaySettingsId], references: [id])
+  kkiapaySettingsId Int             @unique()
+}
+
+model KkiapaySettings {
+  id         Int    @id() @default(autoincrement())
+  publicKey  String
+  privateKey String
+  secretKey  String
+
+  appSettings AppSettings?
 }
 
 enum BookPricingModel {

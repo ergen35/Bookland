@@ -92,7 +92,7 @@
 </script>
 
 <ConfirmationPrompt action={deleteBook} bind:isOpened={isDeleteConfirmationOpened} cancelText="Annuler" okText="Confirmer"
-    descriptionText="Voulez-vous vraiment supprimer ce Mémoire?" questionText="Supprimer ce mémoire" />
+            descriptionText="Voulez-vous vraiment supprimer ce Mémoire?" questionText="Supprimer ce mémoire" />
 
 <div class="pt-4 px-5">
 
@@ -240,40 +240,40 @@
         <div class="flex flex-1">
 
             {#await data.books}
-            <Icon icon='gg:spinner' class="animate-spin" />
+                <Icon icon='eos-icons:loading' class="" />
             {:then books}
-            <Table.Root>
-                <Table.Header>
-                    <Table.Row>
-                        <Table.Head class="w-[100px]">Id</Table.Head>
-                        <Table.Head>Titre</Table.Head>
-                        <Table.Head>Prix</Table.Head>
-                        <Table.Head>Ajouté le</Table.Head>
-                        <Table.Head class="text-right">Actions</Table.Head>
-                    </Table.Row>
-                </Table.Header>
+                <Table.Root>
+                    <Table.Header>
+                        <Table.Row>
+                            <Table.Head class="w-[100px]">Id</Table.Head>
+                            <Table.Head>Titre</Table.Head>
+                            <Table.Head>Prix</Table.Head>
+                            <Table.Head>Ajouté le</Table.Head>
+                            <Table.Head class="text-right">Actions</Table.Head>
+                        </Table.Row>
+                    </Table.Header>
 
-                <Table.Body>
-                    {#each books as book,i (book.id)}
-                    <Table.Row>
-                        <Table.Cell class="font-medium">{book.id}</Table.Cell>
-                        <Table.Cell>{book.title}</Table.Cell>
-                        <Table.Cell>{book.price}</Table.Cell>
-                        <Table.Cell>{book.createdAt.toLocaleDateString("fr")}</Table.Cell>
-                        <Table.Cell class="text-right">
-                            <div>
-                                <Button class="bg-sky-500 hover:bg-sky-800">
-                                    Éditer
-                                </Button>
-                                <Button on:click={()=> showConfirmationPrompt(book.id)} class="bg-red-500 hover:bg-red-800">
-                                    Suppr.
-                                </Button>
-                            </div>
-                        </Table.Cell>
-                    </Table.Row>
-                    {/each}
-                </Table.Body>
-            </Table.Root>
+                    <Table.Body>
+                        {#each books as book,i (book.id)}
+                        <Table.Row>
+                            <Table.Cell class="font-medium">{book.id}</Table.Cell>
+                            <Table.Cell>{book.title}</Table.Cell>
+                            <Table.Cell>{book.price}</Table.Cell>
+                            <Table.Cell>{book.createdAt.toLocaleDateString("fr")}</Table.Cell>
+                            <Table.Cell class="text-right">
+                                <div class="flex flex-row space-x-1">
+                                    <Button class="bg-sky-500 hover:bg-sky-800">
+                                        Éditer
+                                    </Button>
+                                    <Button on:click={()=> showConfirmationPrompt(book.id)} class="bg-red-500 hover:bg-red-800">
+                                        Suppr.
+                                    </Button>
+                                </div>
+                            </Table.Cell>
+                        </Table.Row>
+                        {/each}
+                    </Table.Body>
+                </Table.Root>
             {/await}
 
         </div>
