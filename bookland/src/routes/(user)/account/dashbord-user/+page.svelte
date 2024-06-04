@@ -1,6 +1,6 @@
 <script lang="ts">
     import type { PageData } from './$types';
-    
+    import StatsCard from '$lib/components/StatsCard/StatsCard.svelte';
     export let data: PageData;
 </script>
 
@@ -16,11 +16,9 @@
         
         <div class="flex flex-row space-x-6">
 
-            <StatsCard title="Nombres de memoires total : " count={}>
-                <svelte:fragment slot="icon">
-                    <Icon icon="wpf:books" color:green class="text-orange-900" height={24} width={24}  />
-                </svelte:fragment>
-            </StatsCard>
+        <StatsCard title=" ">
+            
+        </StatsCard>
         </div>
     
     

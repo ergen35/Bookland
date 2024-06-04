@@ -13,13 +13,13 @@
     <div class="flex w-64 py-3 ms-2">
         <div class="bg-teal-50 w-full h-full shadow-teal-300 shadow-sm border rounded-sm px-2 py-4 space-y-1">
 
-            <SideMenuNavigationLink title="Accueil" url="/user/account/dashboard-user">
+            <SideMenuNavigationLink title="Accueil" url="/account">
                 <svelte:fragment slot="icon">
                     <Icon icon="mage:dashboard-chart-fill" color="orange" height={28} width={28}  />
                 </svelte:fragment>
             </SideMenuNavigationLink>
 
-            <SideMenuNavigationLink title="Mes Mémoires" url="/user/mesMemoires">
+            <SideMenuNavigationLink title="Mes Mémoires" url="">
                 <svelte:fragment slot="icon">
                     <Icon icon="wpf:books" height={28} width={28}  />
                 </svelte:fragment>
@@ -46,7 +46,7 @@
     </div>
     
     <main>
-        
+        <slot />
     </main>
     
 </div>
