@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `Book` ADD COLUMN `tags` LONGTEXT NOT NULL DEFAULT '';

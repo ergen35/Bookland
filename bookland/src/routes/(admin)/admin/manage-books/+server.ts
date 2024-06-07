@@ -1,5 +1,7 @@
 import { prisma } from '$lib/server/prisma';
+import { writeFile } from 'fs/promises';
 import type { RequestHandler } from './$types';
+import { writeFileSync } from 'fs';
 
 export const POST: RequestHandler = async ({ request }) => {
 
@@ -14,7 +16,8 @@ export const POST: RequestHandler = async ({ request }) => {
         pageCount: number,
         pricingModel: 'Free' | 'Paid',
         price: number,
-        createdAt: string
+        createdAt: string,
+        tags: Array<string>
     } = await request.json();
 
     console.log(bookData)
@@ -33,7 +36,8 @@ export const POST: RequestHandler = async ({ request }) => {
                 filiereId: Number(bookData.filiereId),
                 universiteId: Number(bookData.universiteId),
                 pricingModel: bookData.pricingModel,
-                pdfFile: bookData.fileName
+                pdfFile: bookData.fileName,
+                tags: bookData.tags.join("|"),
             }
         });
 
@@ -69,6 +73,37 @@ export const DELETE: RequestHandler = async ({ request }) => {
     }
 
     console.log("Book Id is invalid")
+
+    return new Response(JSON.stringify({ message: "Bad Request" }), { status: 400 })
+}
+
+
+export const PUT: RequestHandler = async ({ request }) => { 
+
+    const bookId = new URL(request.url).searchParams.get('id');
+    console.log("book id", bookId)
+    
+    if(bookId && Number(bookId)){
+        
+        const book = await prisma.book.findFirst({
+            where: {
+                id: Number(bookId)
+            }
+        });
+
+        const formData = await request.formData();
+        const bookFile = formData.get('file') as File;
+        
+        console.log("Book size: ", bookFile.size)
+
+        const buffer = Buffer.from(await bookFile.arrayBuffer())        
+        await writeFile("static/" + book?.pdfFile, buffer);
+
+
+        if(book){
+            return new Response();
+        }
+    }
 
     return new Response(JSON.stringify({ message: "Bad Request" }), { status: 400 })
 }

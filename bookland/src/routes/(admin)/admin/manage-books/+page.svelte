@@ -10,6 +10,9 @@
     import SelectionCombo from '$lib/components/SelectionCombo/SelectionCombo.svelte';
     import { invalidateAll } from '$app/navigation';
     import ConfirmationPrompt from '$lib/components/ConfirmationPrompt/ConfirmationPrompt.svelte';
+    //@ts-ignore
+    import Tags from "svelte-tags-input";
+    import type { Book } from '@prisma/client';
 
     export let data: PageData;
 
@@ -24,13 +27,16 @@
         pageCount: '',
         pricingModel: '',
         price: '',
-        createdAt: ''
+        createdAt: '',
+        tags: []
     }
 
 
     let isDialogOpened = false;
     let isDeleteConfirmationOpened = false;
     let selectedBookId: number | undefined = undefined;
+    let bookAddForm: HTMLFormElement | null = null
+    let platImageFormField: HTMLInputElement | null = null;
 
     $: {
 
@@ -46,22 +52,66 @@
                 pageCount: '',
                 pricingModel: '',
                 price: '',
-                createdAt: ''
+                createdAt: '',
+                tags: []
             }
         }
     }
 
     async function addBook() {
 
-        const response = await fetch('/admin/manage-books', {
-            method: 'POST',
-            body: JSON.stringify(bookAddData)
-        })
+        if(bookAddForm){
 
-        if (response.ok) {
-            invalidateAll()
-            isDialogOpened = false;
+            if(bookAddForm.checkValidity() && bookAddData.cycleId && bookAddData.universiteId && bookAddData.filiereId && bookAddData.pricingModel){
+
+                bookAddData.fileName = window.crypto.randomUUID().toString().substring(14).replaceAll('-', '') + ".pdf";
+
+                const response = await fetch('/admin/manage-books', {
+                    method: 'POST',
+                    body: JSON.stringify(bookAddData)
+                })
+        
+                if (response.ok) {
+
+                    //upload book
+                    const book: Book = await response.json();
+                    if(book.id){
+
+                        if(platImageFormField){
+                            if(platImageFormField.files && platImageFormField.files.length > 0){
+
+                                try {
+                                    const file = platImageFormField.files[0]
+
+                                    const formData = new FormData();
+                                    formData.append('file', file, bookAddData.fileName);
+
+                                    const fileUploadResponse = await fetch(`/admin/manage-books?id=${book.id}`, {
+                                        method: 'PUT',
+                                        body: formData
+                                    })
+
+                                    if (fileUploadResponse.ok) {
+
+                                        invalidateAll()
+                                        isDialogOpened = false;
+                                    } else {
+                                        alert("Erreur lors de l'upload du fichier : " + fileUploadResponse.statusText);
+                                    }
+                                    
+                                } catch (error) {
+                                    alert("Erreur lors de l'upload du fichier");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else {
+                alert("Veuillez renseigner tous les champs obligatoires")
+            }
         }
+
 
     }
 
@@ -76,8 +126,6 @@
         if(!selectedBookId){
             return;
         }
-
-
         const response = await fetch(`/admin/manage-books?id=${selectedBookId}`, {
             method: 'DELETE'
         });
@@ -113,9 +161,6 @@
                 <Dialog.Content class="sm:max-w-[425px] min-w-[600px]">
                     <Dialog.Header>
                         <Dialog.Title class="mb-4 text-center">Ajouter un Mémoire</Dialog.Title>
-                        <!-- <Dialog.Description>
-                      Make changes to your profile here. Click save when you're done.
-                    </Dialog.Description> -->
                     </Dialog.Header>
 
                     {#await data.allData}
@@ -123,7 +168,7 @@
                         <Icon icon='gg:spinner' class="animate-spin" />
                     </div>
                     {:then [universites, filieres, cycles]}
-                    <div class="flex flex-col space-y-2">
+                    <form class="flex flex-col space-y-2" bind:this={bookAddForm}>
 
                         <div class="items-center flex w-full flex-row space-x-4">
                             <Label for="universite" class="text-left w-24">Université</Label>
@@ -152,41 +197,28 @@
                             </div>
                         </div>
 
-                        <!-- <div class="items-center flex flex-row w-full space-x-4 content-evenly py-3 my-3 border border-gray-300 px-3 rounded-md">
-                                <div class="w-full flex flex-col space-y-2">
-                                    <Label for="title" class="text-center w-full">Cycle</Label>
-                                    <div class="w-full">
-                                        <SelectionCombo dataArray={cycles.map((u) => { return { value: u.id.toString(), label: u.name } })} displayText="Sélection Cycle" noDataText="Aucun Cycle trouvé" />
-                                    </div>
-                                </div>
-                                <div class="w-full flex flex-col  space-y-2">
-                                    <Label for="title" class="text-center w-full">Filière</Label>
-                                    <div class="w-full">
-                                        <SelectionCombo dataArray={filieres.map((u) => { return { value: u.id.toString(), label: u.name } })} displayText="Sélection Filière" noDataText="Aucune Filière trouvée" />
-                                    </div>
-                                </div>
-                            </div> -->
-
                         <div class="items-center flex flex-row space-x-4">
                             <Label for="title" class="text-left w-24">Thème</Label>
-                            <Input id="title" placeholder="Thème du Mémoire" bind:value={bookAddData.title}
-                                class="col-span-3" />
+                            <Input id="title" required placeholder="Thème du Mémoire" bind:value={bookAddData.title}
+                                class="" />
                         </div>
+
                         <div class="items-center flex flex-row space-x-4">
                             <Label for="author" class="text-left w-24">Auteur</Label>
-                            <Input id="author" placeholder="Auteur" bind:value={bookAddData.author}
-                                class="col-span-3" />
+                            <Input id="author" required placeholder="Auteur" bind:value={bookAddData.author}
+                                class="" />
                         </div>
                         <div class="items-center flex flex-row space-x-4">
                             <Label for="overseer" class="text-left w-24">Superviseur</Label>
-                            <Input id="overseer" placeholder="Nom du Superviseur" bind:value={bookAddData.overseerName}
-                                class="col-span-3" />
+                            <Input id="overseer" required placeholder="Nom du Superviseur" bind:value={bookAddData.overseerName}
+                                class="" />
                         </div>
-                        <!-- <div class="items-center flex flex-row space-x-4">
-                                <Label for="price" class="text-left w-24">Prix</Label>
-                                <Input id="price" type="number" step={5} min={500} value="500" class="col-span-3" />
-                            </div> -->
 
+                        <div class="items-center flex flex-row space-x-4">
+                            <Label for="tags" class="text-left w-24">Mots clés</Label>
+                            <Tags bind:tags={bookAddData.tags} maxTags={10} />
+                        </div>
+                        
                         <div
                             class="items-center flex flex-row w-full space-x-4 content-evenly py-3 my-3 border border-gray-300 px-3 rounded-md">
                             <div class="w-full flex flex-col  space-y-2">
@@ -197,29 +229,28 @@
                                 </div>
                             </div>
                             <div class="w-full flex flex-col space-x-4">
-                                <Input id="price" type="number" bind:value={bookAddData.price} step={5} min={500}
-                                    placeholder="Prix" class="col-span-3" />
+                                <Input id="price" required type="number" bind:value={bookAddData.price} step={5} min={0}
+                                    placeholder="Prix" class="" />
                             </div>
                         </div>
 
                         <div
                             class="items-center flex flex-row w-full space-x-4 content-evenly py-3 my-3 border border-gray-300 px-3 rounded-md">
                             <div class="w-full flex flex-col space-x-4">
-                                <Input id="price" type="number" bind:value={bookAddData.createdAt} step={1} min={1900}
-                                    placeholder="Année de Publication" class="col-span-3" />
+                                <Input id="publish-date" type="number" bind:value={bookAddData.createdAt} step={1} min={1900}
+                                    placeholder="Année de Publication" class="" />
                             </div>
                             <div class="w-full flex flex-col space-x-4">
-                                <Input id="price" bind:value={bookAddData.pageCount} type="number" step={1} min={1}
-                                    placeholder="Nbre. Pages" class="col-span-3" />
+                                <Input id="pages-count" required bind:value={bookAddData.pageCount} type="number" step={1} min={1}
+                                    placeholder="Nbre. Pages" class="" />
                             </div>
                         </div>
 
                         <div class="items-center flex flex-row space-x-4">
-                            <Label for="book-file" class="text-left w-24">Fichier</Label>
-                            <Input id="book-file" bind:value={bookAddData.fileName} accept="application/pdf" type="file"
-                                class="col-span-3" />
+                            <Label for="book-file" class="text-left w-24">Fichier PDF</Label>
+                            <input id="book-file" required bind:this={platImageFormField} bind:value={bookAddData.fileName} accept="application/pdf" type="file" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50" />
                         </div>
-                    </div>
+                    </form>
                     {:catch error}
                     <div class="text-center flex flex-col">
                         <span>Impossible de Charger les Données nécessairees</span>

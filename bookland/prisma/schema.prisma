@@ -80,6 +80,7 @@ model Book {
   filiereId    Int
 
   downloadUnits downloadUnit[]
+  tags String @db.LongText  @default("")
 }
 
 model Cycle {
