@@ -1,7 +1,6 @@
 <script lang="ts">
     import type { Book } from "@prisma/client";
     import ShipCard from "../Ship/ShipCard.svelte";
-    import { Button } from "$lib/components/ui/button"
     
     export let showPayButton = false;
     export let book: Book | null = null;

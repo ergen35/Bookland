@@ -49,6 +49,11 @@
                 {/if}
             </div>
         </div>
+        <div class="">
+            <a href="/account/payment?book={data.book.id}" class="bg-blue-700 text-white font-bold py-3 px-4 rounded mb-2 text-sm">
+                Acheter
+            </a>
+        </div>
         <div>
             <span class="text-teal-700 text-xl">Résumé</span>
             <div>
