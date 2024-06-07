@@ -52,8 +52,8 @@
         <div>
             <span class="text-teal-700 text-xl">Résumé</span>
             <div>
-               {#if data.book.description}
-                    <span>{data.book.description}</span>
+               {#if data.book.summary}
+                    <span>{data.book.summary}</span>
                {:else}
                     <span>Aucun résumé fourni</span>
                {/if}
