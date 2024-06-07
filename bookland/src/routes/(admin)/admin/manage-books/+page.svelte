@@ -13,6 +13,7 @@
     //@ts-ignore
     import Tags from "svelte-tags-input";
     import type { Book } from '@prisma/client';
+    import { page } from '$app/stores';
 
     export let data: PageData;
 
@@ -37,6 +38,7 @@
     let selectedBookId: number | undefined = undefined;
     let bookAddForm: HTMLFormElement | null = null
     let platImageFormField: HTMLInputElement | null = null;
+    let isAddingBook = false;
 
     $: {
 
@@ -164,97 +166,97 @@
                     </Dialog.Header>
 
                     {#await data.allData}
-                    <div class="text-center">
-                        <Icon icon='gg:spinner' class="animate-spin" />
-                    </div>
+                        <div class="text-center">
+                            <Icon icon='gg:spinner' class="animate-spin" />
+                        </div>
                     {:then [universites, filieres, cycles]}
-                    <form class="flex flex-col space-y-2" bind:this={bookAddForm}>
+                        <form class="flex flex-col space-y-2" bind:this={bookAddForm}>
 
-                        <div class="items-center flex w-full flex-row space-x-4">
-                            <Label for="universite" class="text-left w-24">Université</Label>
-                            <div class="w-full">
-                                <SelectionCombo bind:value={bookAddData.universiteId} dataArray={universites.map((u)=> {
-                                    return { value: u.id.toString(), label: u.name } })} displayText="Sélectionner
-                                    Université" noDataText="Aucune Université trouvée" />
-                            </div>
-                        </div>
-
-                        <div class="items-center flex w-full flex-row space-x-4">
-                            <Label for="cycle" class="text-left w-24">Cycle</Label>
-                            <div class="w-full">
-                                <SelectionCombo bind:value={bookAddData.cycleId} dataArray={cycles.map((u)=> { return {
-                                    value: u.id.toString(), label: u.name } })} displayText="Sélectionner Cycle"
-                                    noDataText="Aucun Cycle trouvé" />
-                            </div>
-                        </div>
-
-                        <div class="items-center flex w-full flex-row space-x-4">
-                            <Label for="filiere" class="text-left w-24">Filière</Label>
-                            <div class="w-full">
-                                <SelectionCombo bind:value={bookAddData.filiereId} dataArray={filieres.map((u)=> {
-                                    return { value: u.id.toString(), label: u.name } })} displayText="Sélectionner
-                                    Filière" noDataText="Aucune Filière trouvée" />
-                            </div>
-                        </div>
-
-                        <div class="items-center flex flex-row space-x-4">
-                            <Label for="title" class="text-left w-24">Thème</Label>
-                            <Input id="title" required placeholder="Thème du Mémoire" bind:value={bookAddData.title}
-                                class="" />
-                        </div>
-
-                        <div class="items-center flex flex-row space-x-4">
-                            <Label for="author" class="text-left w-24">Auteur</Label>
-                            <Input id="author" required placeholder="Auteur" bind:value={bookAddData.author}
-                                class="" />
-                        </div>
-                        <div class="items-center flex flex-row space-x-4">
-                            <Label for="overseer" class="text-left w-24">Superviseur</Label>
-                            <Input id="overseer" required placeholder="Nom du Superviseur" bind:value={bookAddData.overseerName}
-                                class="" />
-                        </div>
-
-                        <div class="items-center flex flex-row space-x-4">
-                            <Label for="tags" class="text-left w-24">Mots clés</Label>
-                            <Tags bind:tags={bookAddData.tags} maxTags={10} />
-                        </div>
-                        
-                        <div
-                            class="items-center flex flex-row w-full space-x-4 content-evenly py-3 my-3 border border-gray-300 px-3 rounded-md">
-                            <div class="w-full flex flex-col  space-y-2">
+                            <div class="items-center flex w-full flex-row space-x-4">
+                                <Label for="universite" class="text-left w-24">Université</Label>
                                 <div class="w-full">
-                                    <SelectionCombo bind:value={bookAddData.pricingModel} dataArray={[{ value: 'Free' ,
-                                        label: 'Gratuit' }, { value: 'Paid' , label: "Payant" }]}
-                                        displayText="Modèle de Prix" />
+                                    <SelectionCombo bind:value={bookAddData.universiteId} dataArray={universites.map((u)=> {
+                                        return { value: u.id.toString(), label: u.name } })} displayText="Sélectionner
+                                        Université" noDataText="Aucune Université trouvée" />
                                 </div>
                             </div>
-                            <div class="w-full flex flex-col space-x-4">
-                                <Input id="price" required type="number" bind:value={bookAddData.price} step={5} min={0}
-                                    placeholder="Prix" class="" />
-                            </div>
-                        </div>
 
-                        <div
-                            class="items-center flex flex-row w-full space-x-4 content-evenly py-3 my-3 border border-gray-300 px-3 rounded-md">
-                            <div class="w-full flex flex-col space-x-4">
-                                <Input id="publish-date" type="number" bind:value={bookAddData.createdAt} step={1} min={1900}
-                                    placeholder="Année de Publication" class="" />
+                            <div class="items-center flex w-full flex-row space-x-4">
+                                <Label for="cycle" class="text-left w-24">Cycle</Label>
+                                <div class="w-full">
+                                    <SelectionCombo bind:value={bookAddData.cycleId} dataArray={cycles.map((u)=> { return {
+                                        value: u.id.toString(), label: u.name } })} displayText="Sélectionner Cycle"
+                                        noDataText="Aucun Cycle trouvé" />
+                                </div>
                             </div>
-                            <div class="w-full flex flex-col space-x-4">
-                                <Input id="pages-count" required bind:value={bookAddData.pageCount} type="number" step={1} min={1}
-                                    placeholder="Nbre. Pages" class="" />
-                            </div>
-                        </div>
 
-                        <div class="items-center flex flex-row space-x-4">
-                            <Label for="book-file" class="text-left w-24">Fichier PDF</Label>
-                            <input id="book-file" required bind:this={platImageFormField} bind:value={bookAddData.fileName} accept="application/pdf" type="file" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50" />
-                        </div>
-                    </form>
+                            <div class="items-center flex w-full flex-row space-x-4">
+                                <Label for="filiere" class="text-left w-24">Filière</Label>
+                                <div class="w-full">
+                                    <SelectionCombo bind:value={bookAddData.filiereId} dataArray={filieres.map((u)=> {
+                                        return { value: u.id.toString(), label: u.name } })} displayText="Sélectionner
+                                        Filière" noDataText="Aucune Filière trouvée" />
+                                </div>
+                            </div>
+
+                            <div class="items-center flex flex-row space-x-4">
+                                <Label for="title" class="text-left w-24">Thème</Label>
+                                <Input id="title" required placeholder="Thème du Mémoire" bind:value={bookAddData.title}
+                                    class="" />
+                            </div>
+
+                            <div class="items-center flex flex-row space-x-4">
+                                <Label for="author" class="text-left w-24">Auteur</Label>
+                                <Input id="author" required placeholder="Auteur" bind:value={bookAddData.author}
+                                    class="" />
+                            </div>
+                            <div class="items-center flex flex-row space-x-4">
+                                <Label for="overseer" class="text-left w-24">Superviseur</Label>
+                                <Input id="overseer" required placeholder="Nom du Superviseur" bind:value={bookAddData.overseerName}
+                                    class="" />
+                            </div>
+
+                            <div class="items-center flex flex-row space-x-4">
+                                <Label for="tags" class="text-left w-24">Mots clés</Label>
+                                <Tags bind:tags={bookAddData.tags} maxTags={10} />
+                            </div>
+                            
+                            <div
+                                class="items-center flex flex-row w-full space-x-4 content-evenly py-3 my-3 border border-gray-300 px-3 rounded-md">
+                                <div class="w-full flex flex-col  space-y-2">
+                                    <div class="w-full">
+                                        <SelectionCombo bind:value={bookAddData.pricingModel} dataArray={[{ value: 'Free' ,
+                                            label: 'Gratuit' }, { value: 'Paid' , label: "Payant" }]}
+                                            displayText="Modèle de Prix" />
+                                    </div>
+                                </div>
+                                <div class="w-full flex flex-col space-x-4">
+                                    <Input id="price" required type="number" bind:value={bookAddData.price} step={5} min={0}
+                                        placeholder="Prix" class="" />
+                                </div>
+                            </div>
+
+                            <div
+                                class="items-center flex flex-row w-full space-x-4 content-evenly py-3 my-3 border border-gray-300 px-3 rounded-md">
+                                <div class="w-full flex flex-col space-x-4">
+                                    <Input id="publish-date" type="number" bind:value={bookAddData.createdAt} step={1} min={1900}
+                                        placeholder="Année de Publication" class="" />
+                                </div>
+                                <div class="w-full flex flex-col space-x-4">
+                                    <Input id="pages-count" required bind:value={bookAddData.pageCount} type="number" step={1} min={1}
+                                        placeholder="Nbre. Pages" class="" />
+                                </div>
+                            </div>
+
+                            <div class="items-center flex flex-row space-x-4">
+                                <Label for="book-file" class="text-left w-24">Fichier PDF</Label>
+                                <input id="book-file" required bind:this={platImageFormField} bind:value={bookAddData.fileName} accept="application/pdf" type="file" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50" />
+                            </div>
+                        </form>
                     {:catch error}
-                    <div class="text-center flex flex-col">
-                        <span>Impossible de Charger les Données nécessairees</span>
-                    </div>
+                        <div class="text-center flex flex-col">
+                            <span>Impossible de Charger les Données nécessairees</span>
+                        </div>
                     {/await}
                     <Dialog.Footer>
                         <Button on:click={()=> { addBook(); }} class="bg-teal-800">
@@ -294,10 +296,13 @@
                             <Table.Cell class="text-right">
                                 <div class="flex flex-row space-x-1">
                                     <Button class="bg-sky-500 hover:bg-sky-800">
-                                        Éditer
+                                        <Icon icon="mdi:edit"  height={20} width={20}/>
                                     </Button>
                                     <Button on:click={()=> showConfirmationPrompt(book.id)} class="bg-red-500 hover:bg-red-800">
-                                        Suppr.
+                                        <Icon icon="mdi:delete-outline" height={20} width={20} class="text-white" />
+                                    </Button>
+                                    <Button on:click={()=> open(`${$page.url.origin}/${book.pdfFile}`, '_blank') } class="bg-slate-400 hover:bg-slate-800">
+                                        <Icon icon="mdi:file" height={20} width={20} class="text-white" />
                                     </Button>
                                 </div>
                             </Table.Cell>
