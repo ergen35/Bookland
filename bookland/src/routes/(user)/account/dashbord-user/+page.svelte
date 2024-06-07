@@ -16,7 +16,7 @@
         
         <div class="flex flex-row space-x-6">
 
-        <StatsCard title=" ">
+        <StatsCard title="">
             
         </StatsCard>
         </div>
