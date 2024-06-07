@@ -1,19 +1,27 @@
 <script lang="ts">
-    import type { PageData } from './$types';
-    
+    import type { PageData } from './dashbord-user/$types';
+    import StatsCard from '$lib/components/StatsCard/StatsCard.svelte';
     export let data: PageData;
 </script>
 
 
-<center>
-    User Account
-    <div>
-        <p>Name: {data.session?.name}</p>
-        <p>Role: {data.session?.role}</p>
-        <p>Email: {data.session?.email}</p>
-    </div>
-</center>
 
-<div>
+<div class="pt-4 px-5">
+
+    <div class="mb-5">
+        <span class="text-2xl font-bold text-slate-600">Tableau de bord</span>
+    </div>
+
+    <div class="flex flex-col flex-wrap">
+        
+        <div class="flex flex-row space-x-6">
+
+        <StatsCard title="" count={5}>
+            
+        </StatsCard>
+        </div>
     
+    
+    </div>
+
 </div>
