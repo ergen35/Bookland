@@ -4,7 +4,6 @@
     import PresentationCard from '$lib/components/PresentationCard/PresentationCard.svelte';
     import ShipCard from '$lib/components/Ship/ShipCard.svelte';
     import Skeleton from '$lib/components/ui/skeleton/skeleton.svelte';
-    import { taskDelay } from '$lib/utils';
     import BookCard from '$lib/components/BookCard/BookCard.svelte';
 
     export let data: PageData;
@@ -12,7 +11,7 @@
 
 <div class="flex flex-col w-full">
 
-    <div class="h-32  bg-teal-800 text-gray-100 m-1 py-4">
+    <div class="h-32 bg-teal-800 text-gray-100 m-1 py-4">
 
         <p class="text-3xl text-center">
             Bienvenue sur Bookland, la plateforme de recherche des mémoires.
@@ -76,14 +75,14 @@
         </div>
     </div>
 
-    <div class="flex w-full mt-6">
-        <div class="w-full px-5 mb-5">
+    <div class="flex flex-row w-full items-center justify-center content-center">
+        <div class="w-full flex flex-row mb-5 items-center justify-center content-center">
             {#await data.books}
                 <div class="text-lg text-slate-800 text-center">Chargement...</div>
             {:then books}
-                <div class="flex flew-row flex-wrap w-full space-x-8">
+                <div class="flex flew-row flex-wrap w-full items-center justify-center content-center">
                     {#each books as book}
-                        <BookCard book={book}/>
+                        <BookCard book={book} showPayButton={data.session && data.session?.sessionId ? true : false}/>
                     {:else}
                         <div class="italic text-center text-2xl mt-6">Aucun livre à afficher</div>
                     {/each}

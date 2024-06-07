@@ -17,7 +17,7 @@
 </script>
 
 
-<div class="w-full flex h-auto bg-teal-700 py-2 px-3">
+<div class="w-full flex flex-row h-auto bg-teal-700 py-2 px-3">
     <div class="flex flex-row w-full">
         <a href="/" class="italic text-3xl text-gray-100">Bookland</a>
 
