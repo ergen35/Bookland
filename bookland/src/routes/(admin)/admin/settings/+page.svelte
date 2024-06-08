@@ -5,7 +5,7 @@
     import type { PageData } from './$types';
 	import ShipCard from '$lib/components/Ship/ShipCard.svelte';
     import { Button }  from "$lib/components/ui/button"
-
+    import calert from "calerts";
 
     export let data: PageData;
     
@@ -31,10 +31,19 @@
             })
 
             if(response.ok){
-                alert("Réglages enregistrés")
+                calert({
+                    icon: 'success',
+                    title: 'Réglages enregistrés',
+                    confirmButton: 'Ok',
+                })
+
             }
             else {
-                alert("Could not save settings")
+                calert({
+                    icon: 'error',
+                    title: 'Réglages non enregitrés',
+                    confirmButton: 'Ok',
+                })
             }
         }
     }
