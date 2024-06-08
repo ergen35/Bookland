@@ -2,7 +2,6 @@
     import Icon from '@iconify/svelte';
     import type { PageData } from './$types';
     import * as Alert from "$lib/components/ui/alert/index.js";
-    import { Rocket } from 'lucide-svelte';
     
     export let data: PageData;
 </script>
