@@ -14,5 +14,9 @@
     <div class="mb-5">
         <span class="text-2xl font-bold text-slate-600">Mes Mémoires</span>
     </div>
+
+    <div>
+        Aucun Mémoire acheté
+    </div>
     
 </div>
