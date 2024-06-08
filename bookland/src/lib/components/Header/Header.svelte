@@ -23,7 +23,7 @@
 
         <div class="flex flex-1">
             <div class="w-full justify-end items-center flex flex-row space-x-3 px-2">
-                <a class="navbar-item" href="/all-categories">Catégories</a>
+                <a class="navbar-item" href="/all">Catégories</a>
                 <a class="navbar-item" href="/all">Mémoires</a>
 
                 {#if session }

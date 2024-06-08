@@ -50,7 +50,7 @@
     <div class="flex">
         <div class="w-full content-center items-center justify-center mt-5 flex cursor-pointer">
             <div class="flex flex-row text-center content-center items-center justify-center space-x-1 border border-gray-300 px-3 rounded-md">
-                <a href="/books/all" class="text-2xl">Explorer</a>
+                <a href="/all" class="text-2xl">Explorer</a>
                 <Icon icon="fluent:chevron-right-12-filled" class="text-slate-600 h-6 w-6" />
             </div>
         </div>
@@ -82,7 +82,7 @@
             {:then books}
                 <div class="flex flew-row flex-wrap w-full items-center justify-center content-center">
                     {#each books as book}
-                        <BookCard book={book} showPayButton={data.session && data.session?.sessionId ? true : false}/>
+                        <BookCard book={book} showPayButton={data.session && data.session?.sessionId && data.session?.role == "basic" ? true : false}/>
                     {:else}
                         <div class="italic text-center text-2xl mt-6">Aucun livre à afficher</div>
                     {/each}
