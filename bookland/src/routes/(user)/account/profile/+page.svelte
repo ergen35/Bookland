@@ -26,12 +26,12 @@
         
                                 <div class="form-wrapper">
                                     <label for="fullname" class="mb-1 ms-1">Nom & Prénoms</label>
-                                    <input type="text" placeholder="Nom & Prénoms" name="fullname" class="form-input" id="fullname">
+                                    <input type="text" placeholder="Nom & Prénoms" name="fullname" value={data.session?.name} class="form-input" id="fullname">
                                 </div>
         
                                 <div class="form-wrapper">
                                     <label for="email" class="mb-1 ms-1">Adresse e-mail</label>
-                                    <input disabled type="text" placeholder="Adresse e-mail" name="email" class="form-input" id="email">
+                                    <input disabled type="text" placeholder="Adresse e-mail" name="email" value="{data.session?.email}" class="form-input" id="email">
                                 </div>
                            </div>
     
